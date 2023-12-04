@@ -1,0 +1,16 @@
+{
+  "name": "gyp_learn",
+  "version": "1.0.0",
+  "description": "Learning to use node-gyp to build shit",
+  "scripts": {
+    "build": "node-gyp build",
+    "config": "node-gyp configure --debug",
+    "clangd": "node-gyp configure --debug -- -f gyp.generator.compile_commands_json.py && mv Debug/compile_commands.json . && rm -r Debug Release"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "node-addon-api": "^7.0.0"
+  }
+}
