@@ -5,7 +5,7 @@
   "scripts": {
     "build": "node-gyp build",
     "config": "node-gyp configure --debug",
-    "clangd": "node-gyp configure --debug -- -f gyp.generator.compile_commands_json.py && mv Debug/compile_commands.json . && rm -r Debug Release"
+    "clangd": "node-gyp configure --debug -- -f gyp.generator.compile_commands_json.py"
   },
   "keywords": [],
   "author": "",

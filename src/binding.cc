@@ -1,16 +1,90 @@
 #define NAPI_CPP_EXCEPTIONS
 
 #include "napi.h"
+#include <Windows.h>
+#include <iostream>
 
 using namespace Napi;
+
+static std::string getLastErrorString();
 
 class MyAddon : public Addon<MyAddon> {
   public:
     MyAddon(Env env, Object exports) {
       DefineAddon(exports, {
-          InstanceValue("one", Number::New(env, 10.0))
+          InstanceMethod("message", &MyAddon::messageBox),
+          InstanceMethod("enumPrinters", &MyAddon::enumPrinters)
       });
     }
+
+  private:
+    Value messageBox(const CallbackInfo& info) {
+      auto str = info[0];
+
+      if (!str.IsString()) {
+        napi_throw_type_error(info.Env(), nullptr, "Message must be a string");
+      } else {
+        std::u16string message = str.ToString().Utf16Value();
+        MessageBoxW(nullptr, std::wstring(message.begin(), message.end()).c_str(), L"Message", MB_OK);
+      }
+
+      return info.Env().Undefined();
+    }
+
+    Value enumPrinters(const CallbackInfo& info) {
+      DWORD length;
+      DWORD required;
+      DWORD bufSize;
+
+      BOOL success = EnumPrintersW(
+        PRINTER_ENUM_LOCAL | PRINTER_ENUM_CONNECTIONS, // local printers only
+        nullptr, // get all printers
+        1,
+        nullptr,
+        0,
+        &required,
+        &length
+      );
+
+      bufSize = required;
+      std::unique_ptr<unsigned char[]> printerBuf(new unsigned char[required]);
+
+      success = EnumPrintersW(
+        PRINTER_ENUM_LOCAL | PRINTER_ENUM_CONNECTIONS, // local printers only
+        nullptr, // get all printers
+        1,
+        (LPBYTE)printerBuf.get(),
+        bufSize,
+        &required,
+        &length
+      );
+
+      if (!success) {
+        napi_throw_error(info.Env(), nullptr, getLastErrorString().c_str());
+        return info.Env().Undefined();
+      }
+
+      auto ret = Array::New(info.Env(), length);
+
+      for (int i = 0; i < length; i++) {
+        LPPRINTER_INFO_1W printer = (LPPRINTER_INFO_1W)(printerBuf.get() + i * sizeof(PRINTER_INFO_1W));
+        ret.Set(i, String::New(info.Env(), std::u16string((char16_t*) printer->pName)));
+      }
+
+      return ret;
+    }
 };
+
+static std::string getLastErrorString() {
+  DWORD lastError = GetLastError();
+  if (lastError == 0) return "";
+
+  char buf[256];
+  FormatMessageA(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+                NULL,  lastError, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), 
+                buf, 256, NULL);
+
+  return std::string(buf);
+}
 
 NODE_API_ADDON(MyAddon)
