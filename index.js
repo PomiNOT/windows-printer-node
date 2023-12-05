@@ -1,4 +1,5 @@
-const mod = require("./build/Debug/adder")
+const mod = require("./build/Debug/printer_module")
+const segfaultHandler = require("segfault-handler");
 
 const printers = mod.enumPrinters();
 
@@ -7,5 +8,9 @@ for (const [i, name] of Object.entries(printers)) {
     console.log(`${parseInt(i) + 1}. ${name}`);
 }
 
-const props = mod.getDocumentProperties(printers[3]);
-console.log(props);
+for (const printer of printers) {
+    const props = mod.getDocumentProperties(printer);
+    console.log(props);
+}
+
+segfaultHandler.registerHandler("crash.log");

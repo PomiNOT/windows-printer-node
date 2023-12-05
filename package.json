@@ -1,16 +1,24 @@
 {
-  "name": "gyp_learn",
+  "name": "windows-printer-node",
   "version": "1.0.0",
-  "description": "Learning to use node-gyp to build shit",
+  "description": "Node native module for Windows printing",
   "scripts": {
-    "build": "node-gyp build",
+    "build": "node-gyp build --debug",
     "config": "node-gyp configure --debug",
     "clangd": "node-gyp configure --debug -- -f gyp.generator.compile_commands_json.py"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "node",
+    "printing",
+    "win32",
+    "gdi"
+  ],
+  "author": "PomiNOT",
+  "license": "MIT",
   "dependencies": {
     "node-addon-api": "^7.0.0"
+  },
+  "devDependencies": {
+    "segfault-handler": "^1.3.0"
   }
 }
