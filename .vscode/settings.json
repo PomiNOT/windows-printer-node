@@ -3,6 +3,8 @@
         "xstring": "cpp",
         "iterator": "cpp",
         "list": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "memory": "cpp",
+        "stdexcept": "cpp"
     }
 }
