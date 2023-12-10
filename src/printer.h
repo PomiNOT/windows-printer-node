@@ -24,6 +24,8 @@ public:
 
   HANDLE getHandle();
 
+  const std::wstring& getName();
+
   const DocProps& getPropertiesInternal() const;
 
   ~Printer();

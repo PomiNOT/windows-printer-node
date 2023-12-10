@@ -8,10 +8,10 @@ for (const [i, name] of Object.entries(printers)) {
     console.log(`${parseInt(i) + 1}. ${name}`);
 }
 
-const printer = new Printer(printers[5]);
-printer.setProperties({ copies: 100 });
+const printer = new Printer(printers[3]);
 
-const job = new PrintJob(printer);
-job.printPage(new Uint8Array([1, 2, 3]));
+const job = new PrintJob(printer, "My print document");
+job.printPage(new Uint8Array(Array(500 * 500).fill(60)), 500, 500);
+job.end();
 
 segfaultHandler.registerHandler("crash.log");

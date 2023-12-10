@@ -71,6 +71,10 @@ HANDLE Printer::getHandle() {
     return m_handle;
 }
 
+const std::wstring& Printer::getName() {
+    return m_printerName;
+}
+
 const DocProps& Printer::getPropertiesInternal() const {
     return m_props;
 }

@@ -11,9 +11,13 @@ public:
 
     PrintJob(const Napi::CallbackInfo &info);
 
+    ~PrintJob();
+
     Napi::Value printPage(const Napi::CallbackInfo& info);
 
+    Napi::Value end(const Napi::CallbackInfo& info);
+
 private:
-    Printer* m_printer;
-    HDC m_hdc;
+    Printer* m_printer = nullptr;
+    HDC m_hdc = nullptr;
 };
