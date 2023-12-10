@@ -100,7 +100,7 @@ Napi::Value PrintJob::printPage(const Napi::CallbackInfo& info)
     header.biWidth = w;
     header.biHeight = -h; //top down image
     header.biPlanes = 1;
-    header.biBitCount = 8;
+    header.biBitCount = 24;
     header.biCompression = BI_RGB;
 
     BITMAPINFO bitmapInfo = {0};
