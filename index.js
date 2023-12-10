@@ -1,6 +1,5 @@
-const { enumPrinters, Printer } = require("./build/Debug/printer_module")
+const { enumPrinters, Printer, PrintJob } = require("./build/Debug/printer_module")
 const segfaultHandler = require("segfault-handler");
-const fs = require("fs");
 
 const printers = enumPrinters();
 
@@ -10,8 +9,9 @@ for (const [i, name] of Object.entries(printers)) {
 }
 
 const printer = new Printer(printers[5]);
-printer.chooseProperties();
+printer.setProperties({ copies: 100 });
 
-fs.writeFileSync("config.json", JSON.stringify(printer.getProperties()));
+const job = new PrintJob(printer);
+job.printPage(new Uint8Array([1, 2, 3]));
 
 segfaultHandler.registerHandler("crash.log");
