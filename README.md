@@ -1,5 +1,7 @@
 # Windows Printer Node
 
+# WORK IN PROGRESS
+
 ## Purpose
 
 This library aims to provide some natives interfaces from Windows Printing API (GDI+ Printing API) to applications running in Node.js environment.
@@ -10,22 +12,27 @@ This library is not mature, it may leak memory or crash your application. Use it
 
 - Retrieve names of locally installed printer
 ```javascript
-const printing = require('windows-node-printer');
+const { enumPrinters } = require('windows-node-printer');
 
-const names = printing.enumPrinters();
+const names = enumPrinters();
 console.log(names) // ['Epson A93', ...]
 ```
 
-- Open a dialog to get printing properties (number of copies, page size, DPI)
+- Retrieve information about printing properties (number of copies, page size, DPI)
 ```javascript
-const properties = printing.getDocumentProperties('Epson A93');
+const printer = new Printer('Epson A93');
+const properties = printer.getProperties();
+printer.chooseProperties(); // allow the user to choose properties
+printer.setProperties({ copies: 100 });
 ```
 
 - Print a bitmap image, it will fill the whole page
 ```javascript
 // Raw bit map [r, g, b, r, g, b, ...]
-const bitmap = new Uint8Array([0xff, 0xff, ...]);
-const printJob = printing.print('Epson A93', bitmap);
+const bitmap = Buffer.alloc(width * height * 3).fill(0);
+const printJob = new PrintJob("job name", bitmap);
+printJob.printPage(bitmap);
+printJob.end();
 ```
 
 ## Building
