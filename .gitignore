@@ -4,3 +4,4 @@ node_modules/
 compile_commands.json
 package-lock.json
 crash.log
+printer_module.node

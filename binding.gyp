@@ -7,6 +7,17 @@
       "cflags": [ "/EHsc" ],
       "cflags_cc": [ "/EHsc" ],
       "defines": ["NAPI_CPP_EXCEPTIONS"]
+    },
+    {
+        "target_name": "copy_to_root",
+        "type": "none",
+        "dependencies": ["printer_module"],
+        "copies": [
+            {
+                "files": ["<(PRODUCT_DIR)/printer_module.node"],
+                "destination": "."
+            }
+        ]
     }
   ]
 }
