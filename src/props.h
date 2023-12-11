@@ -139,7 +139,7 @@ public:
 
     ret.Set("copies", getCopies());
     ret.Set("orientation",
-            getOrientation() ? Napi::String::From(env, "portrait") : Napi::String::From(env, "landscape"));
+            getOrientation() == DocumentOrientation::PORTRAIT ? Napi::String::From(env, "portrait") : Napi::String::From(env, "landscape"));
     ret.Set("paperWidth", getPaperWidth());
     ret.Set("paperHeight", getPaperHeight());
     ret.Set("dpi", getDPI());
