@@ -4,8 +4,7 @@
 #include "printer.h"
 #include "napi.h"
 
-class PrintJob : public Napi::ObjectWrap<PrintJob>
-{
+class PrintJob : public Napi::ObjectWrap<PrintJob> {
 public:
     static Napi::Object PrintJob::Init(Napi::Env env, Napi::Object exports);
 

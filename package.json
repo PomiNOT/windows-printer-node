@@ -1,11 +1,17 @@
 {
   "name": "windows-printer-node",
-  "version": "1.0.0",
-  "description": "Node native module for Windows printing",
+  "version": "0.0.1",
+  "description": "Experimental Node native module for Windows printing",
+  "homepage": "https://github.com/PomiNOT/windows-printer-node",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PomiNOT/windows-printer-node.git"
+  },
   "scripts": {
-    "build": "node-gyp build --debug",
-    "config": "node-gyp configure --debug",
-    "clangd": "node-gyp configure --debug -- -f gyp.generator.compile_commands_json.py"
+    "install": "echo Installed",
+    "build": "node-gyp build",
+    "config": "node-gyp configure",
+    "clangd": "node-gyp configure -- -f gyp.generator.compile_commands_json.py"
   },
   "main": "printer_module.node",
   "keywords": [

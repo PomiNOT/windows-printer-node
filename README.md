@@ -12,7 +12,7 @@ This library is not mature, it may leak memory or crash your application. Use it
 
 - Retrieve names of locally installed printer
 ```javascript
-const { enumPrinters } = require('windows-node-printer');
+const { enumPrinters } = require('windows-printer-node');
 
 const names = enumPrinters();
 console.log(names) // ['Epson A93', ...]
