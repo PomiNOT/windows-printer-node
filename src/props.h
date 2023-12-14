@@ -18,7 +18,7 @@ public:
 
   DocumentOrientation getOrientation() const
   {
-    return m_orientation == DMORIENT_PORTRAIT ? DocumentOrientation::PORTRAIT : DocumentOrientation::LANDSCAPE;
+    return m_devMode->dmOrientation == DMORIENT_PORTRAIT ? DocumentOrientation::PORTRAIT : DocumentOrientation::LANDSCAPE;
   }
 
   double getPaperWidth() const
@@ -60,7 +60,7 @@ public:
     if (m_devMode == nullptr)
       return;
 
-    m_devMode->dmOrientation = m_orientation == DocumentOrientation::PORTRAIT ? DMORIENT_PORTRAIT : DMORIENT_LANDSCAPE;
+    m_devMode->dmOrientation = orientation == DocumentOrientation::PORTRAIT ? DMORIENT_PORTRAIT : DMORIENT_LANDSCAPE;
   }
 
   void setPaperWidth(double paperWidth)
@@ -149,5 +149,4 @@ public:
 
 private:
   PDEVMODEW m_devMode = nullptr;
-  DocumentOrientation m_orientation = DocumentOrientation::PORTRAIT;
 };
