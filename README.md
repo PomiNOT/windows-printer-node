@@ -36,6 +36,7 @@ printJob.end();
 ```
 
 ## Building
+> A compiled binary built with ```cl v19.16.27051``` is provided with this package.
 
 > **WARNING**: This building tutorial is not user-friendly, you are expected to have some experience building code to resolve any problems that might come up. It may not build on your machine.
 
